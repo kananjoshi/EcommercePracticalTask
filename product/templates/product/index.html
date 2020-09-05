@@ -1,0 +1,25 @@
+
+{% extends "product/base.html" %}
+{% load static %}
+
+
+{% block content %}
+<!-- First product box start here-->
+<div class="row">
+      {% for product in products %}
+            <div class="course_card">
+                  <a href="/{{product.id}}">
+                        <div class="card" >
+                              <img src="{{product.image.url}}" alt="Avatar" style="width:200px">
+                              <div class="container">
+                                    <h4><b>{{product.name}}</b></h4>
+                                    <p><b>₹</b> {{product.price}}</p>
+                              </div>
+                        </div>
+                  </a>
+            </div>
+      {% endfor %}
+</div>
+<!-- end product -->
+{% endblock %}
+

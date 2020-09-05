@@ -1,0 +1,25 @@
+
+{% extends "product/base.html" %}
+{% load static %}
+
+
+{% block content %}
+<a>
+      <div class="card details" >
+            <img src="{{product.image.url}}" alt="Avatar" style="width:250px">
+            <div class="container">
+                  <h4><b>{{product.name}}</b></h4>
+                  <p><b>₹</b> {{product.price}}</p>
+            </div>
+      </div>
+</a>
+
+<div class="add_cart">
+      
+      <div class="quantity">
+            <h2>Quantity</h2>
+            <input class="plus_minus" type="number" id="1" value="1" min="1" max="25" />
+      </div>
+      <button type="submit" class="add_to_cart_button">Add to Cart</button>
+</div>
+{% endblock %}
