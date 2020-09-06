@@ -7,10 +7,16 @@
 <!-- First product box start here-->
 <div class="row">
       {% for product in products %}
+      <br>
             <div class="course_card">
                   <a href="/{{product.id}}">
                         <div class="card" >
-                              <img src="{{product.image.url}}" alt="Avatar" style="width:200px">
+                             {% if product.image %}
+                                    <img src="{{product.image.url}}" alt="Avatar" style="width:200px">
+                              {% else %}
+                                    <img src="/media/images/no_image.png" alt="Avatar" style="width:170px">
+                             {% endif %}
+                                   
                               <div class="container">
                                     <h4><b>{{product.name}}</b></h4>
                                     <p><b>₹</b> {{product.price}}</p>

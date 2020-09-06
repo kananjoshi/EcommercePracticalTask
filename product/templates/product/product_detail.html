@@ -5,8 +5,12 @@
 
 {% block content %}
 <a>
-      <div class="card details" >
-            <img src="{{product.image.url}}" alt="Avatar" style="width:250px">
+      <div class="card2 details" >
+            {% if product.image %}
+                  <img src="{{product.image.url}}" alt="Avatar" style="width:200px">
+            {% else %}
+                  <img src="/media/images/no_image.png" alt="Avatar" style="width:170px">
+            {% endif %}
             <div class="container">
                   <h4><b>{{product.name}}</b></h4>
                   <p><b>₹</b> {{product.price}}</p>
@@ -20,6 +24,40 @@
             <h2>Quantity</h2>
             <input class="plus_minus" type="number" id="1" value="1" min="1" max="25" />
       </div>
-      <button type="submit" class="add_to_cart_button">Add to Cart</button>
+      <button type="submit" class="add_to_cart_button" >
+            <a href="{% url 'cart_add' product.id %}">
+                  Add to Cart
+            </a>
+      </button>
 </div>
 {% endblock %}
+
+
+{% block javascript %}
+  <script>
+
+    $(".add_to_cart_button").click(function (e) {
+          var postUrl = "http://127.0.0.1:8000/cart/add/{{product.id}}";
+          var quantity = $(".plus_minus").val()
+          e.preventDefault();
+
+          var data = {"quantity":quantity}
+          $.ajax({
+                  url: postUrl,
+                  type:"GET",
+                  data: data,
+                  traditional: true,
+                  dataType: "json",
+                  success: function(result){
+                        window.location.href= "show_cart/";
+                  },
+                  error: function(error){
+                     alert("Error")  
+                  }
+                  
+                  
+            });  
+    });
+  </script>
+{% endblock %}
+

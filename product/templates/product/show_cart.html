@@ -1,0 +1,51 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+  {% for item in cartdata %}
+  <div class="cart">
+      <div class="card center" >
+            {% if item.product.image %}
+                  <img src="{{item.product.image.url}}" alt="Avatar" style="width:250px">
+            {% else %}
+                  <img src="/media/images/no_image.png" alt="Avatar" style="width:170px">
+            {% endif %}
+            <div class="container">
+                  <h4><b>{{item.product.name}}</b></h4>
+                  <p class= "product_price"><b>₹</b> {{item.product.price}}</p>
+                  <p class ="product_qty"><b>Quantity: </b>{{item.quantity}}</p>
+            </div>
+      </div>
+  </div>
+  {% endfor %}
+ <div class="bottom">
+      <h3 class="total-qty"><b> </b> </h3>
+      <h3 class="total-price"><b></b> </h3>
+      <button class="button-style" type="submit">
+            <a href="/place_order/"></a>
+                  Checkout
+            </a>
+            </button>
+ </div>
+{% endblock %}
+
+{% block javascript %}
+      <script>
+            setTimeout(function(){
+                  sum = 0
+                  sum1 = 0
+                  var current_price;
+                  $('.product_price').each(function(){
+                         current_price = parseFloat($(this).text().replace("₹","").replace(" ",""));  // Or this.innerHTML, this.innerText
+                        
+                  });
+
+                  $('.product_qty').each(function(){
+                        sum1 += parseFloat($(this).text().replace("Quantity:","").replace(" ","")) * current_price;  // Or this.innerHTML, this.innerText
+                        sum += parseFloat($(this).text().replace("Quantity:","").replace(" ",""))
+                  });
+
+                  $(".total-price").text("Total Items :"+sum1)  
+                  $(".total-qty").text("Total Items in your cart :"+sum)
+            }, 1000);
+      </script>
+{% endblock %}
